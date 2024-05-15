@@ -3,6 +3,15 @@
 This project uses Terraform to deploy two environments (develop and qa) on AWS. In each environment, an EC2 instance with an associated security group is created, and NGINX is installed on the instance.
 
 ## Project Structure
+
+.
+├── build                   # Compiled files (alternatively `dist`)
+├── docs                    # Documentation files (alternatively `doc`)
+├── src                     # Source files (alternatively `lib` or `app`)
+├── test                    # Automated tests (alternatively `spec` or `tests`)
+├── tools                   # Tools and utilities
+├── LICENSE
+└── README.md
 .
 ├── nginx_server_modules
 │ ├── 00.variables.tf
