@@ -28,7 +28,7 @@ This project uses Terraform to deploy two environments (develop and qa) on AWS. 
 
     ```bash
     git clone https://github.com/wsulbaran94/web-server-nginx.git
-    cd your-repository
+    cd web-server-nginx
     ```
 
 2. Initialize Terraform.
