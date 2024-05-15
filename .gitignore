@@ -6,3 +6,5 @@ nginx-server-qa.key.pub
 terraform.tfstate
 .terraform
 terraform.tfvars.old
+terraform.tfstate.backup
+terraform.tfstate

@@ -27,7 +27,7 @@ This project uses Terraform to deploy two environments (develop and qa) on AWS. 
 1. Clone the repository.
 
     ```bash
-    git clone https://github.com/your-username/your-repository.git
+    git clone https://github.com/wsulbaran94/web-server-nginx.git
     cd your-repository
     ```
 
