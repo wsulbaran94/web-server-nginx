@@ -1,3 +1,8 @@
 nginx-server.key
 nginx-server.key.pub
+nginx-server-develop.key.pub
+nginx-server-qa.key
+nginx-server-qa.key.pub
+terraform.tfstate
 .terraform
+terraform.tfvars.old
