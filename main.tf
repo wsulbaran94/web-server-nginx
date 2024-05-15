@@ -8,7 +8,25 @@ terraform {
 
   required_version = ">= 1.2.0"
 }
+######## vars ##########
+variable "ami_id" {
+  description = "Id ami for instance"
+  default = "ami-0bb84b8ffd87024d8"
+}
 
+variable "instance_type" {
+  description = "Type of instance"
+  default = "t2.micro"
+}
+
+variable "server_name" {
+  description = "name server"
+  default = "webserver"
+}
+variable "enviroment" {
+  description = "Enviroment Type"
+  default = "test"
+}
 ######## provider ##########
 provider "aws" {
   region = "us-east-1"
@@ -16,8 +34,8 @@ provider "aws" {
 
 ######## resource ##########
 resource "aws_instance" "nginx_server" {
-  ami                    = "ami-0bb84b8ffd87024d8"
-  instance_type          = "t2.micro"
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.nginx_server_sg.id]
   subnet_id              = "subnet-0c36f31ca86cf3336"
   user_data              = <<-EOF
@@ -28,8 +46,8 @@ resource "aws_instance" "nginx_server" {
               EOF
   key_name               = aws_key_pair.nginx_server_ssh.key_name
   tags = {
-    Name       = "Example nginx server"
-    Enviroment = "test"
+    Name       = var.server_name
+    Enviroment = var.enviroment
     Owner      = "wilfredosulbaran94@gmail.com"
     Team       = "DevOps"
     Project    = "webinar"
@@ -38,11 +56,11 @@ resource "aws_instance" "nginx_server" {
 ######## resource ssh ##########
 
 resource "aws_key_pair" "nginx_server_ssh" {
-  key_name   = "nginx_server_ssh"
+  key_name   = "nginx-server_ssh"
   public_key = file("nginx-server.key.pub")
   tags = {
-    Name       = "Example nginx server ssh"
-    Enviroment = "test"
+    Name       = "${var.server_name} ssh"
+    Enviroment = "${var.enviroment}"
     Owner      = "wilfredosulbaran94@gmail.com"
     Team       = "DevOps"
     Project    = "webinar"
@@ -51,8 +69,8 @@ resource "aws_key_pair" "nginx_server_ssh" {
 
 ######## resource Security group ##########
 resource "aws_security_group" "nginx_server_sg" {
-  name        = "nginx_server_sg"
-  description = "Security group allowing ssh and http access"
+  name        = "${var.server_name}_sg"
+  description = "Security group allowing ssh and http access to ${var.server_name}"
 
   ingress {
     from_port   = 20
@@ -83,7 +101,7 @@ resource "aws_security_group" "nginx_server_sg" {
   }
 
   tags = {
-    Name       = "Example nginx server security group"
+    Name       = "${var.server_name} server security group"
     Enviroment = "test"
     Owner      = "wilfredosulbaran94@gmail.com"
     Team       = "DevOps"
